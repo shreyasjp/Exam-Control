@@ -4,6 +4,8 @@ class RoomInfo:
         self.Seats = seats
         self.Columns = columns
         self.Rows = rows
+        self.Seating = []
+        self.SeatsFilled = 0
 
 import DBCon
 DB = DBCon.DB
@@ -19,6 +21,7 @@ for j in  range (1, len(Subs)):
 # [k for k, v in Student_Sub_Dict.items() if v == Subs[3]] # To get all the PRNs of a particular subject
         
 TotalStudentsPerSub = {}
+
 for i in Subs[1:]:
     TotalStudentsPerSub[i] = len([k for k, v in Student_Sub_Dict.items() if v == i])
 
@@ -34,20 +37,148 @@ for i in RoomData:
 RequiredRooms = []
 MaxCapacity = sum(i.Seats for i in RoomData)
 
-if TotalStudents>MaxCapacity:
-    print("Hail Hitler")
-
-RequiredSeats = 182
+RequiredSeats = TotalStudents
 AllotedSeats = 0
-for  i in RoomData:
-    if RequiredSeats - AllotedSeats < 2*i.Columns:
-        break
-    if AllotedSeats + i.Seats < RequiredSeats:
-        AllotedSeats += i.Seats
-        RequiredRooms.append(i.Name)
+
+flag = 0
+
+if RequiredSeats>MaxCapacity:
+    print("Hail Hitler")
+else:
+    if RequiredSeats < 16:
+        RequiredRooms.append(RoomData[-1])
+        AllotedSeats += RoomData[-1].Seats
+        RoomData.pop(-1)
     else:
-        RequiredRooms.append(i.Name)
-        AllotedSeats += i.Seats
+        while AllotedSeats < RequiredSeats:
+            for i in RoomData:
+                if RequiredSeats - AllotedSeats >= (i.Seats * 0.5):
+                    RequiredRooms.append(i)
+                    CurrentRoomSeats = i.Seats
+                    RoomData.remove(i)
+                    AllotedSeats += CurrentRoomSeats
+                else:
+
+                    """ if 10 <= RequiredSeats - AllotedSeats < 16:
+                        if RequiredSeats - AllotedSeats > (i.Seats * 0.25): 
+                            RequiredRooms.append(i)
+                            CurrentRoomSeats = i.Seats
+                            RoomData.remove(i)
+                            AllotedSeats += CurrentRoomSeats
+                    if RequiredRooms and RequiredSeats - AllotedSeats <= 2*(sum(j.Columns for j in RequiredRooms)) and RequiredSeats - AllotedSeats < 10:
+                        flag = 1
+                        break """
+                    
+                    if RequiredSeats - AllotedSeats < 15:
+                        # tempFlag = eval(input("\nThenumber of students left is less than 50% of the capacity of the smallest room available. Do you want to allot a new room? (1|0):"))
+                        tempFlag = 0
+                        if tempFlag == 1:
+                            RequiredRooms.append(RoomData[-1])
+                            CurrentRoomSeats = RoomData[-1].Seats
+                            RoomData.pop(-1)
+                            AllotedSeats += CurrentRoomSeats
+                            flag =1
+                            break
+                        else:
+                            if RequiredSeats - AllotedSeats <= 2*(sum(j.Columns for j in RequiredRooms)):
+                                while AllotedSeats < RequiredSeats:
+                                    for i in range (len(RequiredRooms)):
+                                        RequiredRooms[i].Rows += 1
+                                        RequiredRooms[i].Seats += 2*RequiredRooms[i].Columns
+                                        AllotedSeats += 2*RequiredRooms[i].Columns
+                                        if AllotedSeats >= RequiredSeats:
+                                            break
+                                flag = 1
+                                break
+                            else:
+                                print('\nAn exta room has to be alloted as the students cannot be alloted the the existing room.\n')
+                                RequiredRooms.append(RoomData[-1])
+                                CurrentRoomSeats = RoomData[-1].Seats
+                                RoomData.pop(-1)
+                                AllotedSeats += CurrentRoomSeats
+                                flag =1
+                                break
+                    else:
+                        continue
+            if flag == 1:
+                break
+
+    print('\n', RequiredSeats, AllotedSeats, dict((i.Name, i.Seats) for i in RequiredRooms))
+    # print()
+    # RoomsRequired = dict((i.Name, i.Seats) for i in RequiredRooms)
+
+for i in RequiredRooms:
+    for row in range(i.Rows):
+        i.Seating.append([])
+        for col in range(i.Columns):
+            i.Seating[row].append([])
+            for desk in range(2):
+                i.Seating[row][col].append([])
+                i.Seating[row][col][desk] = 0
+
+counter = 0
+
+prn = [k for k in Student_Sub_Dict.keys()]
+
+
+for i in RequiredRooms:
+    if counter < len(prn):
+        if i.SeatsFilled <= i.Seats/2:            
+            for col in range(i.Columns):
+                for row in range(i.Rows):
+                    if not bool(i.Seating[row][col][0]) and counter < len(prn):
+                        i.Seating[row][col][0] = prn[counter]
+                        i.SeatsFilled += 1
+                        counter += 1
+                    else:
+                        continue
+        else:
+            continue
+    else:
         break
 
-print(RequiredSeats, AllotedSeats, RequiredRooms)
+for i in RequiredRooms:
+    if counter < len(prn):
+        if i.SeatsFilled < i.Seats:
+            for col in range(i.Columns):
+                for row in range(i.Rows):
+                    if not bool(i.Seating[row][col][1]) and counter < len(prn):
+                        i.Seating[row][col][1] = prn[counter]
+                        i.SeatsFilled += 1
+                        counter += 1
+                    else:
+                        continue
+        else:
+            continue
+    else:
+        break
+
+def process_2d_array(input_2d_array, lookup_dict):
+    result_dict = {}
+
+    for row in input_2d_array:
+        for column in row:
+            for value in column:
+                # Look up the corresponding value in the dictionary
+                dict_value = lookup_dict.get(value, None)
+
+                if dict_value is not None:
+                    # If the value exists in the dictionary, increment its count in the result_dict
+                    result_dict[dict_value] = result_dict.get(dict_value, 0) + 1
+
+    return result_dict
+
+for i in RequiredRooms:
+    print(i.Name)
+    print(process_2d_array(i.Seating, Student_Sub_Dict))
+    for row in range(i.Rows):
+        for col in range(i.Columns):
+            for seat in range(2):
+                if i.Seating[row][col][seat] != 0:
+                    print(i.Seating[row][col][seat], Student_Sub_Dict[i.Seating[row][col][seat]],sep=',', end=' ')
+                else:
+                    print(i.Seating[row][col][seat], 'None', end=' ')
+            print('|', end='')
+        print('\t')
+    print('\n')
+print()
