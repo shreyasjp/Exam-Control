@@ -34,7 +34,7 @@ for table_info in tables:
 TotalStudentsPerSub = {}
 StudentsperSub = {}
 
-for i in Subs[1:]:
+for i in Subs:
     TotalStudentsPerSub[i] = len([k for k, v in Student_Sub_Dict.items() if v == i])
     StudentsperSub[i] = [k for k, v in Student_Sub_Dict.items() if v == i]
 
@@ -59,7 +59,7 @@ flag = 0
 
 # Allocate rooms based on the number of seats required
 if RequiredSeats > MaxCapacity:
-    print("Hail Hitler")
+    print("The number of students listed cannot be accomodated in the available rooms.")
 else:
     if RequiredSeats < 16:
         RequiredRooms.append(RoomData[-1])
@@ -183,6 +183,7 @@ def process_2d_array(input_2d_array, lookup_dict):
 RoomContents = {}
 TeachersRequired = 0
 RequiredTeachers = []
+TeacherIDList = []
 TeacherbyDept = {}
 
 # Get the list of teachers from the database
@@ -206,7 +207,7 @@ for _ in range(TeachersRequired):
     flag = 1
     while flag:
         index = random.randint(0, len(Teachers) - 1)
-        if Teachers[index] not in RequiredTeachers:
+        if Teachers[index][0] not in TeacherIDList:
             dict_value = Teachers[index][2]
             TeacherbyDept[dict_value] = TeacherbyDept.get(dict_value, 0)
             if TeacherbyDept[dict_value] > 3:
@@ -214,6 +215,7 @@ for _ in range(TeachersRequired):
             else:
                 TeacherbyDept[dict_value] += 1
                 RequiredTeachers.append({Teachers[index][0]: Teachers[index][1]})
+                TeacherIDList.append(Teachers[index][0])
                 DB.execute('UPDATE teachers.teacher_list SET number_of_duties=%s WHERE teacher_id = %s;', (Teachers[index][3] + 1, Teachers[index][0]))
                 # DBCon.CON.commit()
                 flag = 0
