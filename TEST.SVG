@@ -1,0 +1,73 @@
+<svg width="250" height="250" xmlns="http://www.w3.org/2000/svg">
+    <!-- Circle with ID Rang0 -->
+    <circle class="Rang" layer="0" id="Rang0" cx="125" cy="125" r="74.5" fill="none" stroke="#fff" stroke-width="1"></circle>
+    
+    <!-- Text with ID RangText1 -->
+    <g id="RangText1" layer="1" font-size="12" font-style="normal" font-family="Arial" fill="#fff" stroke="none" font-weight="normal" in="0" rad="73" cut="123" len="360">
+        <text transform="translate(176.16,158.22) rotate(126.76)"><tspan>S</tspan></text>
+        <text transform="translate(171.50,164.48) rotate(133.77)"><tspan>T</tspan></text>
+        <text transform="translate(166.59,169.62) rotate(138.59)"><tspan>.</tspan></text>
+        <text transform="translate(164.25,171.70) rotate(141.83)"><tspan> </tspan></text>
+        <text transform="translate(161.27,174.04) rotate(147.28)"><tspan>P</tspan></text>
+        <text transform="translate(154.72,178.27) rotate(154.60)"><tspan>A</tspan></text>
+        <text transform="translate(147.69,181.62) rotate(162.24)"><tspan>U</tspan></text>
+        <text transform="translate(139.64,184.22) rotate(169.26)"><tspan>L</tspan></text>
+        <text transform="translate(133.28,185.43) rotate(173.28)"><tspan>'</tspan></text>
+        <text transform="translate(131.21,185.68) rotate(177.92)"><tspan>S</tspan></text>
+        <text transform="translate(123.42,185.98) rotate(183.36)"><tspan> </tspan></text>
+        <text transform="translate(119.64,185.76) rotate(189.12)"><tspan>C</tspan></text>
+        <text transform="translate(111.29,184.44) rotate(197.38)"><tspan>O</tspan></text>
+        <text transform="translate(102.58,181.73) rotate(204.71)"><tspan>L</tspan></text>
+        <text transform="translate(96.70,179.04) rotate(210.78)"><tspan>L</tspan></text>
+        <text transform="translate(91.13,175.73) rotate(217.49)"><tspan>E</tspan></text>
+        <text transform="translate(84.94,171.00) rotate(225.44)"><tspan>G</tspan></text>
+        <text transform="translate(78.53,164.51) rotate(233.39)"><tspan>E</tspan></text>
+        <text transform="translate(73.87,158.27) rotate(238.83)"><tspan> </tspan></text>
+        <text transform="translate(71.90,155.03) rotate(245.21)"><tspan>★</tspan></text>
+        <text transform="translate(67.79,146.15) rotate(251.59)"><tspan> </tspan></text>
+        <text transform="translate(66.58,142.56) rotate(257.34)"><tspan>D</tspan></text>
+        <text transform="translate(64.72,134.31) rotate(264.98)"><tspan>E</tspan></text>
+        <text transform="translate(64.02,126.55) rotate(272.31)"><tspan>P</tspan></text>
+        <text transform="translate(64.32,118.76) rotate(279.63)"><tspan>A</tspan></text>
+        <text transform="translate(65.61,111.07) rotate(287.27)"><tspan>R</tspan></text>
+        <text transform="translate(68.11,102.99) rotate(294.59)"><tspan>T</tspan></text>
+        <text transform="translate(71.06,96.51) rotate(302.54)"><tspan>M</tspan></text>
+        <text transform="translate(76.31,88.26) rotate(310.80)"><tspan>E</tspan></text>
+        <text transform="translate(81.39,82.35) rotate(318.44)"><tspan>N</tspan></text>
+        <text transform="translate(87.71,76.73) rotate(325.76)"><tspan>T</tspan></text>
+        <text transform="translate(93.59,72.71) rotate(330.89)"><tspan> </tspan></text>
+        <text transform="translate(96.89,70.86) rotate(336.95)"><tspan>O</tspan></text>
+        <text transform="translate(105.28,67.28) rotate(344.58)"><tspan>F</tspan></text>
+        <text transform="translate(112.14,65.37) rotate(349.71)"><tspan> </tspan></text>
+        <text transform="translate(115.86,64.69) rotate(355.46)"><tspan>C</tspan></text>
+        <text transform="translate(124.29,64.00) rotate(363.73)"><tspan>O</tspan></text>
+        <text transform="translate(133.40,64.58) rotate(372.61)"><tspan>M</tspan></text>
+        <text transform="translate(142.95,66.70) rotate(380.88)"><tspan>P</tspan></text>
+        <text transform="translate(150.24,69.47) rotate(388.51)"><tspan>U</tspan></text>
+        <text transform="translate(157.68,73.49) rotate(395.84)"><tspan>T</tspan></text>
+        <text transform="translate(163.45,77.65) rotate(402.84)"><tspan>E</tspan></text>
+        <text transform="translate(169.18,82.94) rotate(410.48)"><tspan>R</tspan></text>
+        <text transform="translate(174.57,89.45) rotate(416.24)"><tspan> </tspan></text>
+        <text transform="translate(176.68,92.60) rotate(421.68)"><tspan>S</tspan></text>
+        <text transform="translate(180.39,99.45) rotate(429.32)"><tspan>C</tspan></text>
+        <text transform="translate(183.39,107.36) rotate(434.76)"><tspan>I</tspan></text>
+        <text transform="translate(184.22,110.38) rotate(439.89)"><tspan>E</tspan></text>
+        <text transform="translate(185.60,118.05) rotate(447.53)"><tspan>N</tspan></text>
+        <text transform="translate(185.98,126.50) rotate(455.48)"><tspan>C</tspan></text>
+        <text transform="translate(185.19,134.92) rotate(463.12)"><tspan>E</tspan></text>
+        <text transform="translate(183.43,142.51) rotate(468.56)"><tspan> </tspan></text>
+        <text transform="translate(182.23,146.11) rotate(474.94)"><tspan>★</tspan></text>
+        <text transform="translate(178.12,154.98) rotate(481.32)"><tspan> </tspan></text>
+    </g>
+    
+    <!-- Circle with ID Rang2 -->
+    <circle class="Rang" layer="2" id="Rang2" cx="125" cy="125" r="77" fill="none" stroke="#fff" stroke-width="1"></circle>
+    
+    <!-- Circle with ID Rang3 -->
+    <circle class="Rang" layer="3" id="Rang3" cx="125" cy="125" r="55.75" fill="none" stroke="#fff" stroke-width="1"></circle>
+    
+    <!-- Text with ID Text4 -->
+    <text x="125" y="125" r="0" id="Text4" layer="4" fill="#fff" stroke="none" font-size="12" font-family="Arial" font-style="normal" font-weight="normal">
+        <tspan dy="3.59" text-anchor="middle">KALAMASSERY</tspan>
+    </text>
+</svg>
