@@ -1,5 +1,3 @@
-import openpyxl
-
 # Global Variables
 weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 slots = ['Morning','Afternoon']
@@ -11,9 +9,9 @@ import ExamControlFunctions as FN # Defined functions library
 # Importing python libraries
 import datetime as dt # datetime library
 from itertools import zip_longest # Itertools library
+import pandas as pd # Pandas library
 import random # Random number generator
-import os # OS for path handling
-import pandas as pd # Pandas for data manipulation
+import os
 
 DB = DBCon.DB # Database connection object
 
@@ -44,10 +42,10 @@ programmes = [i[0] for i in FN.get_all_data('SHOW TABLES FROM students;')] # Lis
 
 print('\n## Add a new Exam ##\n')
 
-exam_name = input('Enter the name of the exam: ') # Input exam name
-exam_date = dt.datetime.strptime(input('Enter the date of the exam (DD-MM-YYYY): '), '%d/%m/%Y') # Exam date
+exam_name = 'Exam Name'
+exam_date = dt.datetime.strptime('26/03/2024', '%d/%m/%Y') # Exam date
 exam_day = (exam_date.weekday() + 1) % 7 # Calculating weekday
-exam_slot = 1 if input('Enter the slot of the exam (Morning/Afternoon): ') == 'Evening' else 0 # Input exam slot
+exam_slot = 1
 
 papers = [] # List of all papers on the day in the slot
 paper_programme = {} # List of all programmes by paper
@@ -55,77 +53,20 @@ paper_students = {} # List of students for each paper
 paper_students_count = {} # Count of students for each paper
 paper_student_map = {} # Map of students to papers
 
-print('\n## Add Papers ##')
+papers = programmes.copy()
 
-# Adding papers
-while 1:
-    paper = input('\nEnter the course code of the paper: ') # Input paper name
-    if paper == '': # If no subject is entered
-        break
-    else:
-        papers.append(paper) # Add subject to list
-    flag = int(input('\nAdd a new paper (Yes:1/No:0): '))
-    if not flag:
-        break
+# Create a dictionary to map student IDs to subjects
+for table_name in papers:
+    paper_programme[table_name] = [table_name]
 
-# Adding different programmes for each paper
-for i in papers:
-    paper_programme[i] = []
-    paper_students[i] = []
-    temp = programmes
-    while True:
-        print('\nProgrammes List: ', [f"{str(j)} {temp.index(j)}" for j in temp])
-        programme_index = int(input(f"\nEnter the index of programme to select students from for {i}: "))
-        if programme_index == '':
-            break
-        loop_temp = temp.pop(programme_index)
-        paper_programme[i].append(loop_temp)
-        students = [k[0] for k in FN.get_all_data(f'SELECT prn FROM students.{loop_temp}')]
-        paper_students[i].extend(students)  # Extending list with students from current programme
-        paper_students_count[i] = len(paper_students[i])  # Update count of students for this paper
+    DB.execute(f"SELECT prn FROM students.{table_name};")
+    student_ids = DB.fetchall()
 
-        # Update paper_student_map
-        for student in students:
-            paper_student_map[student] = i
+    paper_students[table_name] = [i[0] for i in student_ids]
+    paper_students_count[table_name] = len(paper_students[table_name])
 
-        flag_1 = int(input(f"\nAdd students from another programme to {i} (Yes:1/No:0): "))
-        if not flag_1:
-            while True:
-                decision = input(f"\nDo you want to manually add or remove the students from the list for {i} (Add:1/Remove:0/Press Return to continue): ")
-                if decision == '':
-                    break
-                decision = int(decision)
-                if decision:
-                    while True:
-                        prn = input(f"\nEnter the PRN of the student to add to {i} (Press Return to stop): ")
-                        if prn == '':
-                            break
-                        prn = eval(prn)
-                        if prn not in paper_students[i]:
-                            paper_students[i].append(prn)
-                            paper_students_count[i] += 1
-                            paper_student_map[prn] = i  # Update paper_student_map
-                        else:
-                            print("\nPRN already exists in the list")
-                elif decision==0:
-                    while True:
-                        prn = input(f"\nEnter the PRN of the student to remove from {i} (Press Return to stop): ")
-                        if prn == '':
-                            break
-                        prn = eval(prn)
-                        if prn in paper_students[i]:
-                            paper_students[i].remove(prn)
-                            paper_students_count[i] -= 1
-                            del paper_student_map[prn]  # Update paper_student_map
-                        else:
-                            print("\nPRN does not exist in the list")
-                else:
-                    break
-                flag_2 = int(input(f"\nDo you want to manually edit the students list for {i} again (Yes:1/No:0): "))
-                if not flag_2:
-                    break
-            break
-    paper_students_count[i] = len(paper_students[i])
+    for student_id in student_ids:
+        paper_student_map[student_id[0]] = table_name
 
 total_students = sum(paper_students_count[i] for i in paper_students_count)
 
@@ -328,6 +269,8 @@ for i in rooms_required:
                 if prn_list != None:
                     file.write(f"PRN Range: {prn_list}\n")
         file.write('\n')
+
+import pandas as pd
 
 # Convert data to strings
 string_allocations = {key: [[str(item) for item in row] for row in value] for key, value in allocations.items()}

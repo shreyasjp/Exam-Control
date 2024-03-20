@@ -102,6 +102,7 @@ def generate_groupings(items, item_values):
     return allocation+[list(i) for i in best_grouping]
 
 def room_selection(RequiredSeats, max_capacity, rooms):
+    print(RequiredSeats)
     flag = 0
     RequiredRooms = []
     AllotedSeats = 0
@@ -109,32 +110,37 @@ def room_selection(RequiredSeats, max_capacity, rooms):
     # Allocate rooms based on the number of seats required
     if RequiredSeats > max_capacity/2:
         print("The number of students listed cannot be accomodated in the available rooms.")
-    elif RequiredSeats < 16:
+    elif RequiredSeats < 7:
         RequiredRooms.append(rooms[-1])
         AllotedSeats += rooms[-1].columns*rooms[-1].rows
         rooms.pop(-1)
     else:
-        while AllotedSeats < RequiredSeats:
+        while AllotedSeats <= RequiredSeats:
             for i in rooms:
                 if RequiredSeats - AllotedSeats >= ((i.rows*i.columns) * 0.5):
                     RequiredRooms.append(i)
                     CurrentRoomSeats = i.columns*i.rows
                     rooms.remove(i)
                     AllotedSeats += CurrentRoomSeats
-                elif RequiredSeats - AllotedSeats < 7:
+                    if AllotedSeats >= RequiredSeats:
+                        flag = 1
+                        break
+                elif RequiredSeats - AllotedSeats < 7.5:
                     tempFlag = eval(input("\nThenumber of students left is less than 50% of the capacity of the smallest room available. Do you want to allot a new room? (1|0):"))
                     flag = 1
                     if tempFlag == 1:
                         RequiredRooms.append(rooms[-1])
                         CurrentRoomSeats = rooms[-1].columns*rooms[-1].rows
                         rooms.pop(-1)
-                        AllotedSeats += CurrentRoomSeats
+                        AllotedSeats += CurrentRoomSeats                        
+                        if AllotedSeats >= RequiredSeats:
+                            break
                     elif RequiredSeats - AllotedSeats <= 2 * (sum(j.columns for j in RequiredRooms)):
                         while AllotedSeats < RequiredSeats:
                             for RequiredRoom in RequiredRooms:
                                 RequiredRoom.rows += 1
                                 RequiredRoom.seats += 2 * RequiredRoom.columns
-                                AllotedSeats += 2 * RequiredRoom.columns
+                                AllotedSeats += RequiredRoom.columns
                                 if AllotedSeats >= RequiredSeats:
                                     break
                     else:
@@ -148,6 +154,44 @@ def room_selection(RequiredSeats, max_capacity, rooms):
                 break
 
     return RequiredRooms, AllotedSeats
+
+def room_selection2(RequiredSeats, max_capacity, rooms):
+    RequiredRooms = []
+    AllotedSeats = 0
+
+    # Allocate rooms based on the number of seats required
+    if RequiredSeats > max_capacity / 2:
+        print("The number of students listed cannot be accommodated in the available rooms.")
+    elif RequiredSeats < 7:
+        RequiredRooms.append(rooms[-1])
+        AllotedSeats += rooms[-1].columns * rooms[-1].rows
+        rooms.pop(-1)
+    else:
+        while AllotedSeats < RequiredSeats:
+            for room in rooms:
+                room_capacity = room.columns * room.rows
+                if RequiredSeats - AllotedSeats >= (room_capacity * 0.5):
+                    RequiredRooms.append(room)
+                    rooms.remove(room)
+                    AllotedSeats += room_capacity
+                elif RequiredSeats - AllotedSeats < 7:
+                    tempFlag = int(input("\nThe number of students left is less than 50% of the capacity of the smallest room available. Do you want to allot a new room? (1|0): "))
+                    if tempFlag == 1:
+                        RequiredRooms.append(rooms[-1])
+                        AllotedSeats += rooms[-1].columns * rooms[-1].rows
+                        rooms.pop(-1)
+                    else:
+                        print("\nInsufficient seats to allocate.")
+                    break
+            else:
+                print("\nAn extra room has to be allotted as the students cannot be allotted the existing room.")
+                RequiredRooms.append(rooms[-1])
+                AllotedSeats += rooms[-1].columns * rooms[-1].rows
+                rooms.pop(-1)
+                break
+
+    return RequiredRooms, AllotedSeats
+
 
 def process_2d_array(input_2d_array, lookup_dict):
     result_dict = {}
