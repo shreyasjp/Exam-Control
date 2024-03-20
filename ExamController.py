@@ -45,7 +45,7 @@ programmes = [i[0] for i in FN.get_all_data('SHOW TABLES FROM students;')] # Lis
 print('\n## Add a new Exam ##\n')
 
 exam_name = input('Enter the name of the exam: ') # Input exam name
-exam_date = dt.datetime.strptime(input('Enter the date of the exam (DD-MM-YYYY): '), '%d/%m/%Y') # Exam date
+exam_date = dt.datetime.strptime(input('Enter the date of the exam (DD/MM/YYYY): '), '%d/%m/%Y') # Exam date
 exam_day = (exam_date.weekday() + 1) % 7 # Calculating weekday
 exam_slot = 1 if input('Enter the slot of the exam (Morning/Afternoon): ') == 'Evening' else 0 # Input exam slot
 
