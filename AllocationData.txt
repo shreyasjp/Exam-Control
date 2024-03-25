@@ -1,0 +1,10 @@
+Exam Name: Exam Name
+Date of Examination: 2024-03-26 
+Day of Examination: Tuesday
+Exam Time Slot: Afternoon
+Seating Requirement: 267
+Seating Arranged: 270
+Halls Alloted: [('Auditorium', 180), ('F20', 60), ('G19', 60), ('G02', 30), ('F02', 30), ('F11', 30), ('F16', 30), ('S01', 30), ('S03', 30), ('S05', 30), ('S17', 30)]
+Faculty Requirement: 18
+Faculty Alloted: [{34: 'Leo Morris'}, {32: 'Gabriel Wright'}, {16: 'Ava Martinez'}, {25: 'Elijah Young'}, {22: 'Chloe Allen'}, {6: 'Emily Davis'}, {4: 'Alice Williams'}, {26: 'Avery Adams'}, {7: 'Michael Wilson'}, {18: 'Sophia Taylor'}, {11: 'Daniel Martin'}, {23: 'Christopher Hall'}, {31: 'Hannah Parker'}, {20: 'Lily Harris'}, {30: 'Lucas Lewis'}, {28: 'Mason Turner'}, {29: 'Scarlett Walker'}, {1: 'John Doe'}]
+Number of Faculty Alloted by Department: {'CS': 3, 'English': 4, 'Mathematics': 4, 'Physics': 4, 'Chemistry': 3}

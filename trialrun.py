@@ -274,6 +274,7 @@ import pandas as pd
 
 # Convert data to strings
 string_allocations = {key: [[str(item) for item in row] for row in value] for key, value in allocations.items()}
+print(string_allocations)
 
 # Create an Excel writer object
 with pd.ExcelWriter('exam_allocations.xlsx') as writer:

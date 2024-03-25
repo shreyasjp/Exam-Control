@@ -1,0 +1,9 @@
+Room Name: S17
+Subjects Present: {'eng_m_i': 12}
+Students Present: 12
+Faculty Requirement: 1
+Faculty Present: [{34: 'Leo Morris'}]
+
+Paper: eng_m_i
+PRN Range: [230021001173, 230021001174, 230021001175, 230021001176, 230021001177, 230021001178, 230021001179, 230021001180, 230021001181, 230021001182, 230021001183, 230021001184]
+
